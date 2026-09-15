@@ -196,6 +196,38 @@ section{margin-top:var(--s7)}
   .tile .ico svg{width:32px;height:32px}
 }
 
+/* toggle tile and tool sheet */
+button.tile{font:inherit;color:inherit;border:none;cursor:pointer;width:100%;text-align:left}
+.tile .chev{position:absolute;top:14px;right:14px;z-index:3;width:20px;height:20px;color:var(--ink-faint);
+  transition:transform .42s var(--ease-liquid)}
+.tile[aria-expanded="true"] .chev{transform:rotate(180deg);color:var(--mb-teal)}
+.panel{margin-top:var(--s3)}
+.panel.anim{overflow:hidden;animation:drop .45s var(--ease-out)}
+@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.sheet{padding:var(--s4)}
+.sheetlab{margin:2px 0 var(--s3);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;color:var(--ink-soft)}
+.row{display:flex;align-items:center;gap:var(--s3);min-height:48px;padding:10px var(--s3);
+  border-radius:var(--r-sm);text-decoration:none;color:inherit;
+  transition:background .25s var(--ease-out),transform .2s var(--ease-liquid)}
+.row:hover{background:rgba(255,255,255,.42)}
+.row:active{transform:scale(.985)}
+.rdot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:var(--d);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--d) 20%,transparent)}
+.rtxt{flex:1}
+.rtxt b{display:block;font-size:13px;font-weight:700}
+.rtxt small{display:block;font-size:10.5px;color:var(--ink-faint);margin-top:2px}
+.rgo{font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--mb-teal);padding:5px 10px;border-radius:999px;
+  background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.85)}
+.group{margin:var(--s2) 0;padding:var(--s2) 0;
+  background:linear-gradient(90deg,rgba(255,255,255,.26),rgba(255,255,255,.10));border-radius:var(--r-sm)}
+.glab{margin:2px var(--s3) var(--s1);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:700;color:var(--ink-faint)}
+.row.sub{margin-left:var(--s3)}
+.row.soon{cursor:default}
+.row.soon:hover{background:none}
+.row.soon .rgo{opacity:.5}
+
 /* soon state */
 .soon{cursor:default}
 .soon .ico{filter:saturate(.35);opacity:.62}
@@ -301,7 +333,7 @@ footer p{font-size:10px;color:var(--ink-faint);letter-spacing:.06em;margin:0}
         <span><b>Hosts</b><small>First impression</small></span>
       </a>
 
-      <a class="tile glass" data-link="train-servers" style="--d:var(--mb-amber)">
+      <button type="button" class="tile glass" data-toggle="servers" aria-expanded="false" aria-controls="panel-servers" style="--d:var(--mb-amber)">
         <span class="ico" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3.5 15.5h17"/>
@@ -311,8 +343,44 @@ footer p{font-size:10px;color:var(--ink-faint);letter-spacing:.06em;margin:0}
           </svg>
         </span>
         <span><b>Servers</b><small>Floor and service</small></span>
-      </a>
+        <span class="chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"/></svg>
+        </span>
+      </button>
 
+    </div>
+
+    <div class="panel" id="panel-servers" hidden>
+      <div class="glass lg sheet">
+        <p class="sheetlab">Server Tools</p>
+
+        <a class="row" data-link="srv-5day">
+          <span class="rdot" style="--d:var(--mb-green)"></span>
+          <span class="rtxt"><b>5 Day Guide</b><small>Training checklist</small></span>
+          <span class="rgo">PDF</span>
+        </a>
+
+        <div class="group">
+          <p class="glab">Toast POS Practice</p>
+          <a class="row sub" data-link="srv-pos-carryout">
+            <span class="rdot" style="--d:var(--mb-coral)"></span>
+            <span class="rtxt"><b>Carry Out Orders</b><small>Quick order screen</small></span>
+            <span class="rgo">PDF</span>
+          </a>
+          <a class="row sub" data-link="srv-pos-tables">
+            <span class="rdot" style="--d:var(--mb-coral)"></span>
+            <span class="rtxt"><b>Toast Tables</b><small>Screen training</small></span>
+            <span class="rgo">PDF</span>
+          </a>
+        </div>
+
+        <a class="row" data-link="srv-menutest">
+          <span class="rdot" style="--d:var(--mb-amber)"></span>
+          <span class="rtxt"><b>Menu Test Key</b><small>Trainer copy</small></span>
+          <span class="rgo">PDF</span>
+        </a>
+
+      </div>
     </div>
   </section>
 
@@ -350,6 +418,16 @@ footer p{font-size:10px;color:var(--ink-faint);letter-spacing:.06em;margin:0}
           </svg>
         </span>
         <span><b>Handbook</b><small>Policies</small></span>
+      </a>
+
+      <a class="tile glass" data-link="all-uniform" style="--d:var(--mb-sage)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 4.5 12 6l3-1.5 4 2.3-2 3.2-2-1v11H9V9l-2 1-2-3.2z"/>
+            <path d="M12 6v2.3"/>
+          </svg>
+        </span>
+        <span><b>Uniform and Attendance</b><small>Policy</small></span>
       </a>
 
     </div>
@@ -422,11 +500,16 @@ const LINKS = {
   'train-cooks'    : { url:'' },
   'train-dish'     : { url:'' },
   'train-hosts'    : { url:'' },
-  'train-servers'  : { url:'' },
+
+  'srv-5day'         : { url:'tools/5-day-guide-server.html' },
+  'srv-pos-carryout' : { url:'tools/toast-pos-carryout-practice.html' },
+  'srv-pos-tables'   : { url:'tools/toast-tables-screen-training.html' },
+  'srv-menutest'     : { url:'tools/menu-test-key.html' },
 
   'all-safety'     : { url:'' },
   'all-plateware'  : { url:'' },
   'all-handbook'   : { url:'' },
+  'all-uniform'    : { url:'tools/uniform-attendance-policy.html' },
 
   'info-schedule'  : { url:'' },
   'info-workday'   : { url:'' },
@@ -443,11 +526,31 @@ document.querySelectorAll('[data-link]').forEach(el => {
   } else {
     el.classList.add('soon');
     el.setAttribute('aria-disabled','true');
-    const pill = document.createElement('span');
-    pill.className = 'pill';
-    pill.textContent = 'Soon';
-    el.appendChild(pill);
+    const go = el.querySelector('.rgo');
+    if (go) { go.textContent = 'Soon'; }
+    else {
+      const pill = document.createElement('span');
+      pill.className = 'pill';
+      pill.textContent = 'Soon';
+      el.appendChild(pill);
+    }
   }
+});
+
+/* disclosure tiles reveal their tool sheet */
+document.querySelectorAll('[data-toggle]').forEach(btn => {
+  const panel = document.getElementById('panel-' + btn.dataset.toggle);
+  if (!panel) return;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    panel.hidden = open;
+    if (!open) {
+      panel.classList.add('anim');
+      panel.addEventListener('animationend', () => panel.classList.remove('anim'), { once:true });
+      panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+  });
 });
 
 /* specular highlight follows the pointer across every glass surface */
