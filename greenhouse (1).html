@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f0f5f0">
+<title>The Greenhouse | Morning Belle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mb-green:#99C961; --mb-yellow:#ffde5c; --mb-coral:#fc826d; --mb-teal:#3c5c68;
+  --mb-charcoal:#4d4d4d; --mb-amber:#fbaf41; --mb-sage:#9bc4bc; --mb-orange:#f46e3b;
+  --mb-pinkberry:#d70158;
+
+  --ink:rgba(28,48,58,.95);
+  --ink-soft:rgba(50,80,92,.62);
+  --ink-faint:rgba(60,92,104,.42);
+  --hairline:rgba(60,92,104,.14);
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px;
+  --r-lg:26px; --r-md:20px; --r-sm:14px; --r-xs:10px;
+  --bar-h:58px;
+
+  --glass-blur:blur(7px) saturate(230%) brightness(1.1) contrast(1.06);
+  --glass-blur-lg:blur(34px) saturate(200%) brightness(1.1) contrast(1.03);
+  --glass-fill:linear-gradient(158deg,rgba(255,255,255,.52) 0%,rgba(255,255,255,.26) 46%,rgba(255,255,255,.44) 100%);
+
+  --glass-edge:
+    inset 0 0 0 1px rgba(255,255,255,.5),
+    inset 0 2px 1px -1px rgba(255,255,255,1),
+    inset 0 -2px 2px -1px rgba(255,255,255,.75),
+    inset 3px 0 6px -3px rgba(255,255,255,.8),
+    inset -3px 0 6px -3px rgba(255,255,255,.8),
+    inset 0 -9px 14px -10px rgba(60,92,104,.5),
+    inset 0 9px 14px -10px rgba(60,92,104,.28);
+
+  --drop:0 18px 40px -22px rgba(60,92,104,.42), 0 2px 6px -2px rgba(60,92,104,.16);
+
+  --lens-rim:conic-gradient(from 205deg at 50% 50%,
+      rgba(255,255,255,.98) 0%,
+      rgba(255,255,255,.55) 12%,
+      rgba(153,201,97,.55) 28%,
+      rgba(155,196,188,.50) 44%,
+      rgba(60,92,104,.42) 62%,
+      rgba(255,255,255,.35) 80%,
+      rgba(255,255,255,.98) 100%);
+
+  --ease-liquid:cubic-bezier(.16,1.1,.3,1);
+  --ease-out:cubic-bezier(.22,1,.36,1);
+
+  --sans:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --display:"Playfair Display",Georgia,serif;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;font-family:var(--sans);color:var(--ink);
+  background:#f0f5f0;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
+}
+:focus-visible{outline:2px solid var(--mb-teal);outline-offset:3px;border-radius:6px}
+
+/* ============ LAYER 1. CANVAS ============ */
+#canvas{position:fixed;inset:0;z-index:-4;
+  background:linear-gradient(160deg,#f0f5f0,#e8f2f4 35%,#f5f7ee 70%,#faf8f0)}
+
+/* ============ LAYER 2. ORBS ============ */
+.orb{position:fixed;border-radius:50%;filter:blur(52px);opacity:.8;z-index:-3;pointer-events:none;will-change:top,left}
+#o1{width:520px;height:520px;background:radial-gradient(circle,#99C961 0%,transparent 70%);animation:roam1 12s ease-in-out infinite}
+#o2{width:440px;height:440px;background:radial-gradient(circle,#3c5c68 0%,transparent 70%);opacity:.6;animation:roam2 15s ease-in-out infinite}
+#o3{width:400px;height:400px;background:radial-gradient(circle,#fbaf41 0%,transparent 70%);opacity:.55;animation:roam3 11s ease-in-out infinite}
+#o4{width:340px;height:340px;background:radial-gradient(circle,#fc826d 0%,transparent 70%);opacity:.5;animation:roam4 13s ease-in-out infinite}
+#o5{width:300px;height:300px;background:radial-gradient(circle,#9bc4bc 0%,transparent 70%);opacity:.45;animation:roam5 14s ease-in-out infinite}
+@keyframes roam1{0%{top:-10vh;left:-8vw}25%{top:20vh;left:55vw}50%{top:60vh;left:15vw}75%{top:30vh;left:75vw}100%{top:-10vh;left:-8vw}}
+@keyframes roam2{0%{top:10vh;left:70vw}25%{top:55vh;left:30vw}50%{top:5vh;left:10vw}75%{top:70vh;left:65vw}100%{top:10vh;left:70vw}}
+@keyframes roam3{0%{top:65vh;left:5vw}25%{top:10vh;left:40vw}50%{top:50vh;left:70vw}75%{top:80vh;left:25vw}100%{top:65vh;left:5vw}}
+@keyframes roam4{0%{top:75vh;left:60vw}25%{top:20vh;left:80vw}50%{top:45vh;left:20vw}75%{top:10vh;left:50vw}100%{top:75vh;left:60vw}}
+@keyframes roam5{0%{top:40vh;left:40vw}25%{top:70vh;left:10vw}50%{top:15vh;left:65vw}75%{top:55vh;left:50vw}100%{top:40vh;left:40vw}}
+
+/* ============ LAYER 3. GRAIN ============ */
+#grain{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.30;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='160' height='160' filter='url(%23n)' opacity='.55'/></svg>")}
+
+/* ============ LAYER 4. GLASS ============ */
+.glass{
+  position:relative;border:none;border-radius:var(--r-lg);
+  background:var(--glass-fill);
+  backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+  box-shadow:var(--glass-edge),var(--drop);
+  isolation:isolate;
+}
+.glass.lg{backdrop-filter:var(--glass-blur-lg);-webkit-backdrop-filter:var(--glass-blur-lg)}
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.75),transparent 60%);
+  opacity:0;transition:opacity .45s var(--ease-out)}
+.glass:hover::before,.glass:focus-visible::before,.glass:focus-within::before{opacity:1}
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.6px;
+  background:var(--lens-rim);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:2}
+.glass>*{position:relative;z-index:1}
+
+/* ============ HEADER ============ */
+header#bar{position:sticky;top:0;z-index:60;height:var(--bar-h);
+  display:flex;align-items:center;gap:var(--s3);padding:0 var(--s4);
+  border:none;border-radius:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.62),rgba(255,255,255,.34));
+  backdrop-filter:blur(20px) saturate(210%) brightness(1.06);
+  -webkit-backdrop-filter:blur(20px) saturate(210%) brightness(1.06);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 26px -20px rgba(60,92,104,.5)}
+.mark{display:flex;align-items:center;gap:var(--s2);text-decoration:none;color:inherit}
+.seed{font-size:19px;line-height:1;display:inline-block;animation:breathe 6s var(--ease-out) infinite}
+@keyframes breathe{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.09) rotate(-3deg)}}
+.mark b{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.01em;color:var(--ink)}
+.mark span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);
+  padding-left:var(--s2);border-left:1px solid var(--hairline);margin-left:var(--s1)}
+@media(max-width:560px){.mark span{display:none}}
+.rainbow{position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:linear-gradient(90deg,var(--mb-green),var(--mb-yellow),var(--mb-amber),var(--mb-coral),var(--mb-sage),var(--mb-green));
+  background-size:320% 100%;animation:flow 16s linear infinite}
+@keyframes flow{0%{background-position:0% 50%}100%{background-position:320% 50%}}
+
+/* ============ LAYOUT ============ */
+main{max-width:860px;margin:0 auto;padding:var(--s6) var(--s4) var(--s7)}
+section{margin-top:var(--s7)}
+.hero{text-align:left;padding:var(--s2) 0 0}
+.hero h1{font-family:var(--display);font-weight:600;font-size:40px;line-height:1.08;
+  letter-spacing:-.015em;margin:0 0 var(--s3);color:var(--ink)}
+.hero h1 em{font-style:italic;
+  background:linear-gradient(104deg,var(--mb-green),var(--mb-amber) 52%,var(--mb-coral));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:13.5px;line-height:1.7;color:var(--ink-soft);margin:0;max-width:44ch}
+.hero .hint{font-size:11px;color:var(--ink-faint);margin-top:var(--s3)}
+@media(max-width:520px){.hero h1{font-size:32px}}
+
+.sec{display:flex;align-items:center;gap:var(--s2);margin:0 0 var(--s4);
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--ink-soft)}
+.sec i{width:7px;height:7px;border-radius:50%;background:var(--d);flex:0 0 7px;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--d) 22%,transparent),0 0 10px var(--d)}
+.sec u{flex:1;height:1px;border:none;text-decoration:none;
+  background:linear-gradient(90deg,var(--hairline),transparent)}
+
+/* ============ GUIDE PANEL ============ */
+.guide{display:flex;align-items:center;gap:var(--s5);padding:var(--s5);border-radius:var(--r-lg);
+  text-decoration:none;color:inherit;
+  transition:transform .42s var(--ease-liquid),box-shadow .42s var(--ease-liquid),border-radius .42s var(--ease-liquid)}
+.guide:hover{transform:translateY(-6px);border-radius:30px}
+.guide:active{transform:scale(.985);border-radius:34px;transition-duration:.16s}
+.guide .ico{flex:0 0 86px;width:86px;height:86px;border-radius:22px;display:grid;place-items:center;
+  background:linear-gradient(150deg,rgba(153,201,97,.42),rgba(255,222,92,.28));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 18px -12px rgba(60,92,104,.55);
+  color:var(--mb-teal);transition:transform .42s var(--ease-liquid),border-radius .42s var(--ease-liquid)}
+.guide:hover .ico{transform:scale(1.1);border-radius:26px}
+.guide:active .ico{transform:scale(.9);border-radius:30px;transition-duration:.16s}
+.guide .ico svg{width:38px;height:38px}
+.guide h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 6px;letter-spacing:-.01em}
+.guide p{font-size:12px;line-height:1.6;color:var(--ink-soft);margin:0}
+.guide .go{margin-left:auto;flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mb-teal);padding:11px var(--s4);border-radius:999px;
+  background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.85),0 4px 12px -8px rgba(60,92,104,.6);
+  min-height:44px;display:flex;align-items:center}
+@media(max-width:620px){
+  .guide{flex-wrap:wrap;gap:var(--s4);padding:var(--s4)}
+  .guide .ico{flex:0 0 74px;width:74px;height:74px;border-radius:21px}
+  .guide .ico svg{width:33px;height:33px}
+  .guide .txt{flex:1 1 60%}
+  .guide .go{margin-left:0;width:100%;justify-content:center}
+}
+
+/* ============ TILES ============ */
+.grid{display:grid;gap:var(--s3)}
+.roles{grid-template-columns:repeat(auto-fill,minmax(178px,1fr))}
+
+@media(max-width:520px){.roles{grid-template-columns:1fr 1fr}}
+
+.tile{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:var(--s3);
+  padding:var(--s4);border-radius:var(--r-md);text-decoration:none;color:inherit;min-height:44px;
+  transition:transform .42s var(--ease-liquid),border-radius .42s var(--ease-liquid)}
+.tile:hover{transform:translateY(-6px);border-radius:24px}
+.tile:active{transform:scale(.985);border-radius:28px;transition-duration:.16s}
+.tile .ico{width:86px;height:86px;border-radius:22px;display:grid;place-items:center;color:var(--mb-teal);
+  background:linear-gradient(150deg,color-mix(in srgb,var(--d) 40%,transparent),rgba(255,255,255,.34));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 8px 18px -12px rgba(60,92,104,.55);
+  transition:transform .42s var(--ease-liquid),border-radius .42s var(--ease-liquid)}
+.tile:hover .ico{transform:scale(1.1);border-radius:26px}
+.tile:active .ico{transform:scale(.9);border-radius:30px;transition-duration:.16s}
+.tile .ico svg{width:36px;height:36px}
+.tile b{font-size:13.5px;font-weight:700;letter-spacing:.005em;display:block}
+.tile small{display:block;font-size:10.5px;color:var(--ink-faint);margin-top:3px;letter-spacing:.04em}
+@media(max-width:520px){
+  .tile .ico{width:74px;height:74px;border-radius:21px}
+  .tile .ico svg{width:32px;height:32px}
+}
+
+/* toggle tile and tool sheet */
+button.tile{font:inherit;color:inherit;border:none;cursor:pointer;width:100%;text-align:left}
+.tile .chev{position:absolute;top:14px;right:14px;z-index:3;width:20px;height:20px;color:var(--ink-faint);
+  transition:transform .42s var(--ease-liquid)}
+.tile[aria-expanded="true"] .chev{transform:rotate(180deg);color:var(--mb-teal)}
+.panel{margin-top:var(--s3)}
+.panel.anim{overflow:hidden;animation:drop .45s var(--ease-out)}
+@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.sheet{padding:var(--s4)}
+.sheetlab{margin:2px 0 var(--s3);font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:700;color:var(--ink-soft)}
+.row{display:flex;align-items:center;gap:var(--s3);min-height:48px;padding:10px var(--s3);
+  border-radius:var(--r-sm);text-decoration:none;color:inherit;
+  transition:background .25s var(--ease-out),transform .2s var(--ease-liquid)}
+.row:hover{background:rgba(255,255,255,.42)}
+.row:active{transform:scale(.985)}
+.rdot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:var(--d);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--d) 20%,transparent)}
+.rtxt{flex:1}
+.rtxt b{display:block;font-size:13px;font-weight:700}
+.rtxt small{display:block;font-size:10.5px;color:var(--ink-faint);margin-top:2px}
+.rgo{font-size:9px;font-weight:700;letter-spacing:.14em;color:var(--mb-teal);padding:5px 10px;border-radius:999px;
+  background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.85)}
+.group{margin:var(--s2) 0;padding:var(--s2) 0;
+  background:linear-gradient(90deg,rgba(255,255,255,.26),rgba(255,255,255,.10));border-radius:var(--r-sm)}
+.glab{margin:2px var(--s3) var(--s1);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  font-weight:700;color:var(--ink-faint)}
+.row.sub{margin-left:var(--s3)}
+.row.soon{cursor:default}
+.row.soon:hover{background:none}
+.row.soon .rgo{opacity:.5}
+
+/* soon state */
+.soon{cursor:default}
+.soon .ico{filter:saturate(.35);opacity:.62}
+.soon b{color:var(--ink-soft)}
+.soon:hover{transform:none;border-radius:var(--r-md)}
+.soon:hover .ico{transform:none;border-radius:22px}
+.pill{position:absolute;top:10px;right:10px;z-index:3;font-size:8.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mb-teal);padding:4px 9px;border-radius:999px;
+  background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.9)}
+
+/* ============ ENTRANCE ============ */
+.rise{opacity:0;transform:translateY(14px);animation:rise .7s var(--ease-out) forwards}
+.rise:nth-of-type(1){animation-delay:.00s}
+.d1{animation-delay:.09s}.d2{animation-delay:.18s}.d3{animation-delay:.27s}
+.d4{animation-delay:.36s}.d5{animation-delay:.45s}.d6{animation-delay:.54s}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+
+footer{max-width:860px;margin:0 auto;padding:0 var(--s4) var(--s7);text-align:center}
+footer p{font-size:10px;color:var(--ink-faint);letter-spacing:.06em;margin:0}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01ms!important}
+  .rise{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="canvas"></div>
+<div class="orb" id="o1"></div><div class="orb" id="o2"></div><div class="orb" id="o3"></div>
+<div class="orb" id="o4"></div><div class="orb" id="o5"></div>
+<div id="grain"></div>
+
+<header id="bar">
+  <a class="mark" href="#top">
+    <span class="seed" aria-hidden="true">🌱</span>
+    <b>The Greenhouse</b>
+    <span>Morning Belle</span>
+  </a>
+  <div class="rainbow" aria-hidden="true"></div>
+</header>
+
+<main id="top">
+
+  <section class="hero rise">
+    <h1>Everything grows in the <em>Greenhouse</em>.</h1>
+    <p>The guide, the feedback, and every training tool your team needs, in one place.</p>
+    <p class="hint">Tap any tile to open it.</p>
+  </section>
+
+  <section class="rise d1">
+    <p class="sec" style="--d:var(--mb-green)"><i></i>Gardener's Guide<u></u></p>
+    <a class="guide glass lg" data-link="guide">
+      <span class="ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 6.5C10.6 5.2 8.8 4.6 6.5 4.6H4v12.9h2.5c2.3 0 4.1.6 5.5 1.9"/>
+          <path d="M12 6.5c1.4-1.3 3.2-1.9 5.5-1.9H20v12.9h-2.5c-2.3 0-4.1.6-5.5 1.9"/>
+          <path d="M12 6.5v12.9"/>
+        </svg>
+      </span>
+      <span class="txt">
+        <h2>Gardener's Guide</h2>
+        <p>The standard for how we grow people here.</p>
+      </span>
+      <span class="go">Open</span>
+    </a>
+  </section>
+
+  <section class="rise d2">
+    <p class="sec" style="--d:var(--mb-coral)"><i></i>Training<u></u></p>
+    <div class="grid roles">
+
+      <a class="tile glass" data-link="train-cooks" style="--d:var(--mb-coral)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c1.6 2.3 2.4 4.2 2.4 5.7 0 1.6-1.2 2.4-1.2 3.8 0 .9.6 1.6 1.4 1.8"/>
+            <path d="M12 21c-3.6 0-6-2.4-6-5.6 0-2.4 1.3-4.3 2.6-5.7.2 1.5.9 2.4 1.9 2.8"/>
+            <path d="M12 21c3.6 0 6-2.4 6-5.6 0-1.6-.6-3-1.5-4.2"/>
+          </svg>
+        </span>
+        <span><b>Cooks</b><small>Line and prep</small></span>
+      </a>
+
+      <a class="tile glass" data-link="train-dish" style="--d:var(--mb-sage)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 13.5h17c0 3.9-3.8 6.5-8.5 6.5S3.5 17.4 3.5 13.5z"/>
+            <path d="M8 10.5c0-1.6 1.8-2.1 1.8-3.6 0-1-.8-1.7-1.6-2.4"/>
+            <path d="M13 10.5c0-1.6 1.8-2.1 1.8-3.6 0-1-.8-1.7-1.6-2.4"/>
+          </svg>
+        </span>
+        <span><b>Dish</b><small>Heart of the house</small></span>
+      </a>
+
+      <a class="tile glass" data-link="train-hosts" style="--d:var(--mb-yellow)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 20.5V8.5C6 5.7 8.7 3.5 12 3.5s6 2.2 6 5v12"/>
+            <path d="M3.5 20.5h17"/>
+            <circle cx="14.6" cy="12.4" r="1"/>
+          </svg>
+        </span>
+        <span><b>Hosts</b><small>First impression</small></span>
+      </a>
+
+      <button type="button" class="tile glass" data-toggle="servers" aria-expanded="false" aria-controls="panel-servers" style="--d:var(--mb-amber)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3.5 15.5h17"/>
+            <path d="M5.5 15.5c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/>
+            <path d="M12 9V6.5"/><circle cx="12" cy="5" r="1.2"/>
+            <path d="M8 19.5h8"/>
+          </svg>
+        </span>
+        <span><b>Servers</b><small>Floor and service</small></span>
+        <span class="chev" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5l6 6 6-6"/></svg>
+        </span>
+      </button>
+
+    </div>
+
+    <div class="panel" id="panel-servers" hidden>
+      <div class="glass lg sheet">
+        <p class="sheetlab">Server Tools</p>
+
+        <a class="row" data-link="srv-5day">
+          <span class="rdot" style="--d:var(--mb-green)"></span>
+          <span class="rtxt"><b>5 Day Guide</b><small>Training checklist</small></span>
+          <span class="rgo">PDF</span>
+        </a>
+
+        <div class="group">
+          <p class="glab">Toast POS Practice</p>
+          <a class="row sub" data-link="srv-pos-carryout">
+            <span class="rdot" style="--d:var(--mb-coral)"></span>
+            <span class="rtxt"><b>Carry Out Orders</b><small>Quick order screen</small></span>
+            <span class="rgo">PDF</span>
+          </a>
+          <a class="row sub" data-link="srv-pos-tables">
+            <span class="rdot" style="--d:var(--mb-coral)"></span>
+            <span class="rtxt"><b>Toast Tables</b><small>Screen training</small></span>
+            <span class="rgo">PDF</span>
+          </a>
+        </div>
+
+        <a class="row" data-link="srv-menutest">
+          <span class="rdot" style="--d:var(--mb-amber)"></span>
+          <span class="rtxt"><b>Menu Test Key</b><small>Trainer copy</small></span>
+          <span class="rgo">PDF</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="rise d3">
+    <p class="sec" style="--d:var(--mb-sage)"><i></i>For Everyone<u></u></p>
+    <div class="grid roles">
+
+      <a class="tile glass" data-link="all-safety" style="--d:var(--mb-green)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3.2 5 6v6c0 4.3 2.9 7.5 7 8.8 4.1-1.3 7-4.5 7-8.8V6z"/>
+            <path d="M9 12.2l2.1 2.1L15.2 10"/>
+          </svg>
+        </span>
+        <span><b>Food and Beverage Safety</b><small>Standards</small></span>
+      </a>
+
+      <a class="tile glass" data-link="all-plateware" style="--d:var(--mb-coral)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="13" r="6.2"/><circle cx="9" cy="13" r="3"/>
+            <path d="M17.2 4.2h4.3l-.9 5.4a1.3 1.3 0 0 1-1.3 1.1h0a1.3 1.3 0 0 1-1.3-1.1z"/>
+            <path d="M19.3 10.7v8.6M17.4 19.3h3.9"/>
+          </svg>
+        </span>
+        <span><b>Plateware and Glassware</b><small>Presentation</small></span>
+      </a>
+
+      <a class="tile glass" data-link="all-handbook" style="--d:var(--mb-amber)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 4.5h10.5A3.5 3.5 0 0 1 19 8v11.5H8.5A3.5 3.5 0 0 1 5 16z"/>
+            <path d="M5 16a3.5 3.5 0 0 1 3.5-3.5H19"/>
+            <path d="M8.8 8h6.4"/>
+          </svg>
+        </span>
+        <span><b>Handbook</b><small>Policies</small></span>
+      </a>
+
+      <a class="tile glass" data-link="all-uniform" style="--d:var(--mb-sage)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 4.5 12 6l3-1.5 4 2.3-2 3.2-2-1v11H9V9l-2 1-2-3.2z"/>
+            <path d="M12 6v2.3"/>
+          </svg>
+        </span>
+        <span><b>Uniform and Attendance</b><small>Policy</small></span>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="rise d4">
+    <p class="sec" style="--d:var(--mb-amber)"><i></i>Information<u></u></p>
+    <div class="grid roles">
+
+      <a class="tile glass" data-link="info-schedule" style="--d:var(--mb-green)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/>
+            <path d="M3.5 9.5h17M8 3.5v3M16 3.5v3"/>
+            <circle cx="8.5" cy="13.5" r=".9"/><circle cx="12" cy="13.5" r=".9"/><circle cx="15.5" cy="13.5" r=".9"/>
+          </svg>
+        </span>
+        <span><b>Schedule</b><small>This week</small></span>
+      </a>
+
+      <a class="tile glass" data-link="info-workday" style="--d:var(--mb-sage)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="7" width="18" height="13.5" rx="2.5"/>
+            <path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7"/>
+            <path d="M3 12.5h18"/>
+          </svg>
+        </span>
+        <span><b>Workday</b><small>Pay and time</small></span>
+      </a>
+
+      <a class="tile glass" data-link="info-location" style="--d:var(--mb-coral)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/>
+            <circle cx="12" cy="10" r="2.6"/>
+          </svg>
+        </span>
+        <span><b>Location Info</b><small>Hours and contacts</small></span>
+      </a>
+
+      <a class="tile glass" data-link="info-about" style="--d:var(--mb-yellow)">
+        <span class="ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8.5"/>
+            <path d="M12 11v5.5"/><circle cx="12" cy="8" r=".9"/>
+          </svg>
+        </span>
+        <span><b>About Morning Belle</b><small>Who we are</small></span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Morning Belle · The Greenhouse</p>
+</footer>
+
+<script>
+/* ============================================================
+   THE ONE PLACE YOU EDIT.
+   Add a url to turn a tile on. Leave it empty and the tile
+   stays in its Soon state.
+   ============================================================ */
+const LINKS = {
+  'guide'          : { url:'https://morningbellebrunch.github.io/Gardeners-Guide/' },
+
+  'train-cooks'    : { url:'' },
+  'train-dish'     : { url:'' },
+  'train-hosts'    : { url:'' },
+
+  'srv-5day'         : { url:'tools/5-day-guide-server.html' },
+  'srv-pos-carryout' : { url:'tools/toast-pos-carryout-practice.html' },
+  'srv-pos-tables'   : { url:'tools/toast-tables-screen-training.html' },
+  'srv-menutest'     : { url:'tools/menu-test-key.html' },
+
+  'all-safety'     : { url:'' },
+  'all-plateware'  : { url:'' },
+  'all-handbook'   : { url:'' },
+  'all-uniform'    : { url:'tools/uniform-attendance-policy.html' },
+
+  'info-schedule'  : { url:'' },
+  'info-workday'   : { url:'' },
+  'info-location'  : { url:'' },
+  'info-about'     : { url:'' }
+};
+
+document.querySelectorAll('[data-link]').forEach(el => {
+  const cfg = LINKS[el.dataset.link] || {};
+  if (cfg.url) {
+    el.href = cfg.url;
+    el.target = '_blank';
+    el.rel = 'noopener';
+  } else {
+    el.classList.add('soon');
+    el.setAttribute('aria-disabled','true');
+    const go = el.querySelector('.rgo');
+    if (go) { go.textContent = 'Soon'; }
+    else {
+      const pill = document.createElement('span');
+      pill.className = 'pill';
+      pill.textContent = 'Soon';
+      el.appendChild(pill);
+    }
+  }
+});
+
+/* disclosure tiles reveal their tool sheet */
+document.querySelectorAll('[data-toggle]').forEach(btn => {
+  const panel = document.getElementById('panel-' + btn.dataset.toggle);
+  if (!panel) return;
+  btn.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!open));
+    panel.hidden = open;
+    if (!open) {
+      panel.classList.add('anim');
+      panel.addEventListener('animationend', () => panel.classList.remove('anim'), { once:true });
+      panel.scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+  });
+});
+
+/* specular highlight follows the pointer across every glass surface */
+document.querySelectorAll('.glass').forEach(el => {
+  el.addEventListener('pointermove', ev => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', ((ev.clientX - r.left) / r.width * 100) + '%');
+    el.style.setProperty('--my', ((ev.clientY - r.top) / r.height * 100) + '%');
+  }, { passive:true });
+});
+</script>
+</body>
+</html>
